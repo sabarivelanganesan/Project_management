@@ -1,0 +1,270 @@
+﻿@model List<Project_Management_System.Models.ProjectViewModel>
+@{
+    ViewData["Title"] = "Projects List";
+}
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center py-3">
+        <div class="navbar">Projects</div>
+        <div class="d-flex">
+            <div class="mr-3">
+                <input class="form-control" type="search" placeholder="Search">
+            </div>
+            <button class="btn btn-primary" style="margin-left: 15px;" type="button" onclick="openModal()">+ Add Project</button>
+        </div>
+    </div>
+</div>
+
+<div id="myModal" class="modal">
+    <div class="backdrop"></div>
+    <div class="modal-content">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center py-3">
+                <h3 class="modal-title" style="color: black;">New Project</h3>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <span class="close" style="color: black; cursor: pointer;" onclick="closeModal()">&times;</span>
+                    </div>
+                </div>
+            </div>
+            <form asp-controller="Projects" asp-action="CreateProject" method="post">
+                <div class="form-group mb-4">
+                    <label for="projectTitle">Project Title</label>
+                    <input type="text" class="form-control" id="projectTitle" name="ProjectTitle" placeholder="Project Title" required>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label class="mb-2" for="projectOwner">Project Owner</label>
+                    <input type="text" id="projectOwner" name="ProjectOwner" class="form-control" autocomplete="off" placeholder="Assign Owner" required>
+                    <ul id="itemList" class="list-group mt-2"></ul>
+                </div>
+
+                <div class="form-group mb-4">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="mb-2"  for="startTime">Start Time</label>
+                            <input type="datetime-local" name="StartTime" class="form-control" id="startTime">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="mb-2" for="endTime">End Time</label>
+                            <input type="datetime-local" name="EndTime" class="form-control" id="endTime">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mb-4">
+                    <label class="mb-2" for="tags">Tags</label>
+                    <input type="text" name="Tags" class="form-control" id="tags" placeholder="Enter tags">
+                </div>
+                <div class="form-group mb-4">
+                    <label class="mb-2" for="projectDescription">Project Description</label>
+                    <textarea id="projectDescription" name="ProjectDescription"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Create Project</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-4">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Project</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Tags</th>
+                <th>Owner</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var project in Model)
+            {
+                <tr>
+                    <td>@project.ProjectTitle</td>
+                    <td>@project.StartTime</td>
+                    <td>@project.EndTime</td>
+                    <td>@project.Tags</td>
+                    <td>@project.ProjectOwner</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+<style>
+    .backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: none; /* Initially hide the backdrop */
+    }
+    .modal {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 100%;
+        width: 50%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        transition: transform 4s ease;
+    }
+
+
+    .modal-content {
+        background-color: #fefefe;
+        padding: 20px;
+        height: 100%;
+        border: 0px;
+        overflow: auto;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    .form-group label {
+        font-weight: bold;
+    }
+</style>
+
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+
+<script>
+
+    function autocomplete(inp, url) {
+        var currentFocus;
+
+        inp.addEventListener("input", function (e) {
+            var a, b, i, val = this.value;
+            closeAllLists();
+            if (!val) { return false; }
+            currentFocus = -1;
+            a = document.createElement("DIV");
+            a.setAttribute("id", this.id + "autocomplete-list");
+            a.setAttribute("class", "autocomplete-items");
+            this.parentNode.appendChild(a);
+
+            // Make an asynchronous request to the server to get the data
+            console.log(url + '?search=' + val);
+            fetch(url + '?search=' + val)
+                .then(response => response.json())
+                .then(data => {
+                    for (i = 0; i < data.length; i++) {
+                        b = document.createElement("DIV");
+                        b.innerHTML = "<strong>" + data[i].text.substr(0, val.length) + "</strong>";
+                        b.innerHTML += data[i].text.substr(val.length);
+                        b.innerHTML += "<input type='hidden' value='" + data[i].value + "'>";
+                        b.addEventListener("click", function (e) {
+                            inp.value = this.getElementsByTagName("input")[0].value;
+                            closeAllLists();
+                        });
+                        a.appendChild(b);
+                    }
+                });
+        });
+
+        inp.addEventListener("keydown", function (e) {
+            var x = document.getElementById(this.id + "autocomplete-list");
+            if (x) x = x.getElementsByTagName("div");
+            if (e.keyCode == 40) {
+                currentFocus++;
+                addActive(x);
+            } else if (e.keyCode == 38) {
+                currentFocus--;
+                addActive(x);
+            } else if (e.keyCode == 13) {
+                e.preventDefault();
+                if (currentFocus > -1) {
+                    if (x) x[currentFocus].click();
+                }
+            }
+        });
+
+        function addActive(x) {
+            if (!x || !x[currentFocus]) return false;
+
+            removeActive(x);
+
+            if (currentFocus >= x.length) currentFocus = 0;
+            if (currentFocus < 0) currentFocus = (x.length - 1);
+
+            x[currentFocus].classList.add("autocomplete-active");
+        }
+
+        function removeActive(x) {
+            if (!x) return;
+
+            for (var i = 0; i < x.length; i++) {
+                if (x[i] && x[i].classList) {
+                    x[i].classList.remove("autocomplete-active");
+                }
+            }
+        }
+
+        function closeAllLists(elmnt) {
+            var x = document.getElementsByClassName("autocomplete-items");
+            for (var i = 0; i < x.length; i++) {
+                if (elmnt != x[i] && elmnt != inp) {
+                    x[i].parentNode.removeChild(x[i]);
+                }
+            }
+        }
+
+        document.addEventListener("click", function (e) {
+            closeAllLists(e.target);
+        });
+    }
+
+    // Use the URL of your Overview_GetCountries action method
+    var countriesUrl = "/Projects/Overview_GetCountries";
+    autocomplete(document.getElementById("projectOwner"), countriesUrl);
+
+
+    // Add this script at the end of your HTML body or in a script tag
+    function openModal() {
+        const data = @Json.Serialize(Model);
+        const body = document.getElementsByTagName("body")[0];
+        const myModal = document.getElementById("myModal");
+        const backdrop = myModal.querySelector(".backdrop");
+
+        myModal.style.left = "50%";
+        myModal.style.display = "block";
+        backdrop.style.display = "block"; // Show the backdrop
+        body.classList.add("modal-open");
+    }
+
+    function closeModal() {
+        const body = document.getElementsByTagName("body")[0];
+        const myModal = document.getElementById("myModal");
+        const backdrop = myModal.querySelector(".backdrop");
+
+        myModal.style.left = "100%";
+        myModal.style.display = "none";
+        backdrop.style.display = "none"; // Hide the backdrop
+        body.classList.remove("modal-open");
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        tinymce.init({
+            selector: '#projectDescription',
+            height: 300,
+            plugins: 'lists link',
+            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link',
+            setup: function (editor) {
+                editor.on('change', function () {
+                    // Set the hidden input value with the editor content
+                    document.getElementById('projectDescriptionHidden').value = editor.getContent();
+                });
+            },
+        });
+    });
+</script>

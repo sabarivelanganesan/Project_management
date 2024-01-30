@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Project_Management_System</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/project.css" />
+    <script src="https://cdn.tiny.cloud/1/0xy33lkz2u2ubt0oq3825img7mu62xvfdf1w0n5tlj0pkw9p/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+</head>
+<body class="main-body">
+
+    <header>
+        <!-- Sidebar -->
+        <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-primary">
+            <div class="position-sticky">
+                <div class="list-group list-group-flush mx-3 mt-3">
+                    <a href="@Url.Action("Index", "Home")"
+                       class="list-group-item list-group-item-action py-2 ripple @(ViewContext.RouteData.Values["Controller"].ToString() == "Home" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
+                        <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Home</span>
+                    </a>
+                    <a href="@Url.Action("Index", "Projects")" class="list-group-item list-group-item-action py-2 ripple @(ViewContext.RouteData.Values["Controller"].ToString() == "Projects" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
+                        <i class="fas fa-chart-area fa-fw me-3"></i><span>Projects</span>
+                    </a>
+                    <a href="@Url.Action("Index", "MyTasks")"
+                       class="list-group-item list-group-item-action py-2 ripple @(ViewContext.RouteData.Values["Controller"].ToString() == "MyTasks" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
+                        <i class="fas fa-tachometer-alt fa-fw me-3"></i><span">My Tasks</span>
+                    </a>
+                    <a href="@Url.Action("Index", "Notifications")" class="list-group-item list-group-item-action py-2 ripple @(ViewContext.RouteData.Values["Controller"].ToString() == "Notifications" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
+                        <i class="fas fa-chart-area fa-fw me-3"></i><span>Discuss</span>
+                    </a>
+                    <a href="@Url.Action("Index", "Settings")"
+                       class="list-group-item list-group-item-action py-2 ripple @(ViewContext.RouteData.Values["Controller"].ToString() == "Settings" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
+                        <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Settings</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <!-- Sidebar -->
+        <!-- Navbar -->
+        <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #F1F0F0;">
+            <!-- Container wrapper -->
+            <div class="container-fluid">
+                <!-- Toggle button -->
+                <button class="navbar-toggler"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#sidebarMenu"
+                        aria-controls="sidebarMenu"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <!-- Brand -->
+                <a class="navbar-brand" href="#">
+                    <h3>Greetsoft</h3>
+                </a>
+
+                <!-- Right links -->
+                <ul class="navbar-nav ms-auto d-flex flex-row">
+                    <!-- Notification dropdown -->
+                    <li class="nav-item dropdown">  
+                        <button type="button" class="btn btn-sm mt-1 position-relative" style="background-color: #EAE6E6; border-radius: 50%;">
+                            <img src="/images/bell.png" style="width: 22px; height: 22px; " alt="notification icon">
+                        </button>
+                    </li>
+
+                    <!-- Icon -->
+                    <li class="nav-item">
+                        <a class="nav-link me-3 me-lg-0" href="#">
+                            <i class="fas fa-fill-drip"></i>
+                        </a>
+                    </li>
+
+                    <!-- Avatar -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center"
+                           href="#"
+                           id="navbarDropdownMenuLink"
+                           role="button"
+                           data-mdb-toggle="dropdown"
+                           aria-expanded="false">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp"
+                                 class="rounded-circle"
+                                 height="22"
+                                 alt="Avatar"
+                                 loading="lazy" />
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end"
+                            aria-labelledby="navbarDropdownMenuLink">
+                            <li>
+                                <a class="dropdown-item" href="#">My profile</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">Settings</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- Container wrapper -->
+        </nav>
+        <!-- Navbar -->
+
+    </header>
+    <!--Main Navigation-->
+    <!--Main layout-->
+    <main style="margin-top: 58px;  ">
+        <div class="container">
+            @RenderBody()
+        </div>
+    </main>
+    <!--Main layout-->
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
