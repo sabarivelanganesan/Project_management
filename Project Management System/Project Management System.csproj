@@ -7,4 +7,8 @@
     <RootNamespace>Project_Management_System</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.Console" Version="4.3.1" />
+  </ItemGroup>
+
 </Project>

@@ -26,6 +26,10 @@
                        class="list-group-item list-group-item-action py-2 ripple @(ViewContext.RouteData.Values["Controller"].ToString() == "MyTasks" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
                         <i class="fas fa-tachometer-alt fa-fw me-3"></i><span">My Tasks</span>
                     </a>
+                    <a href="@Url.Action("ProjectDetails", "Projects")"
+                       class="list-group-item list-group-item-action py-2 ripple">
+                        <i class="fas fa-tachometer-alt fa-fw me-3"></i><span">Tasks(dev)</span>
+                    </a>
                     <a href="@Url.Action("Index", "Notifications")" class="list-group-item list-group-item-action py-2 ripple @(ViewContext.RouteData.Values["Controller"].ToString() == "Notifications" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
                         <i class="fas fa-chart-area fa-fw me-3"></i><span>Discuss</span>
                     </a>
@@ -51,6 +55,7 @@
                         aria-label="Toggle navigation">
                     <i class="fas fa-bars"></i>
                 </button>
+
 
                 <!-- Brand -->
                 <a class="navbar-brand" href="#">
