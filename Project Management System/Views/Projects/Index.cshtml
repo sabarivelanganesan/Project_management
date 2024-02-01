@@ -67,21 +67,21 @@
 </div>
 
 <div class="container mt-4">
-    <table class="table table-bordered">
-        <thead>
+    <table class="table projectlist-table">
+        <thead class="projectlist-head">
             <tr>
-                <th>Project</th>
-                <th>Start Time</th>
-                <th>End Time</th>
-                <th>Tags</th>
-                <th>Owner</th>
+                <th scope="col">Project</th>
+                <th scope="col">Start Time</th>
+                <th scope="col">End Time</th>
+                <th scope="col">Tags</th>
+                <th scope="col">Owner</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="projectlist-body">
             @foreach (var project in Model)
             {
-                <tr>
-                    <td>@project.ProjectTitle</td>
+                <tr style="border: solid #fff" onclick="location.href='@Url.Action("ProjectDetails", "Projects", new { id = project.ProjectId })';" style="cursor:pointer;">
+                <td>@project.ProjectTitle</td>
                     <td>@project.StartTime</td>
                     <td>@project.EndTime</td>
                     <td>@project.Tags</td>
@@ -95,6 +95,14 @@
 
 
 <style>
+    table.projectlist-table .projectlist-head tr {
+        border-bottom: 3px solid #eee;
+        margin-bottom: 5px;
+    }
+        table.projectlist-table .projectlist-body tr:hover {
+        background-color: #eee;
+        cursor: pointer;
+    }
     .backdrop {
         position: fixed;
         top: 0;
@@ -139,6 +147,7 @@
 
 
 <script>
+
 
     function autocomplete(inp, url) {
         var currentFocus;

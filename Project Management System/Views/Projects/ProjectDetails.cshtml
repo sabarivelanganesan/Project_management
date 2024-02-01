@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Project-Details";
+}
+<div class="container-fluid">
+    <nav class="nav pt-4 pb-0" style="border-bottom: 0.5px solid #CCE;">
+        <div class="nav-item  p-2 me-3">Dashboard</div>
+        <div class="nav-item active p-2 me-3">Tasks</div>
+        <div class="nav-item p-2">Reports</div>
+    </nav>
+    <div class="d-flex justify-content-end mt-3">
+        <button class="btn btn-primary">Add Task</button>
+    </div>
+    <div class="container mt-4">
+        <table class="table projectlist-table">
+            <thead class="projectlist-head">
+                <tr>
+                    <th scope="col">Project</th>
+                    <th scope="col">Owner</th>
+                    <th scope="col">status</th>
+                    <th scope="col">Duration</th>
+                    <th scope="col">Priority</th>
+                    <th scope="col">CreatedBy</th>
+                    <th scope="col">Start Time</th>
+                    <th scope="col">End Time</th>
+                    <th scope="col">Tags</th>
+                </tr>
+            </thead>
+            <tbody class="projectlist-body">
+                <tr style="border: solid #fff; cursor:pointer">
+                    <td>Task</td>
+                    <td>ProjectOwner</td>
+                    <td>Status</td>
+                    <td>Duration</td>
+                    <td>Priority</td>
+                    <td>CreatedBy</td>
+                    <td>StartTime</td>
+                    <td>EndTime</td>
+                    <td>Tags</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<style>
+    .nav-item.active {
+        border-bottom: 3px solid #02054D !important;
+        border-radius: 2px;
+        color: #02054D !important;
+        font-weight: bold;
+    }
+
+    table.projectlist-table .projectlist-head tr {
+        border-bottom: 3px solid #eee;
+        margin-bottom: 5px;
+    }
+
+    table.projectlist-table .projectlist-body tr:hover {
+        background-color: #eee;
+        cursor: pointer;
+    }
+</style>
+
