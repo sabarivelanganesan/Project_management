@@ -32,7 +32,7 @@
                     <label for="projectTitle">Project Title</label>
                     <input type="text" class="form-control" id="projectTitle" name="ProjectTitle" placeholder="Project Title" required>
                 </div>
-
+                <!--needs to fix autocomplete-->
                 <div class="form-group mb-4">
                     <label class="mb-2" for="projectOwner">Project Owner</label>
                     <input type="text" id="projectOwner" name="ProjectOwner" class="form-control" autocomplete="off" placeholder="Assign Owner" required>
@@ -51,13 +51,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group mb-4">
-                    <label class="mb-2" for="tags">Tags</label>
-                    <input type="text" name="Tags" class="form-control" id="tags" placeholder="Enter tags">
-                </div>
+                <!-- Bugs in Text area needs to fix-->
                 <div class="form-group mb-4">
                     <label class="mb-2" for="projectDescription">Project Description</label>
                     <textarea id="projectDescription" name="ProjectDescription"></textarea>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label class="mb-2" for="tags">Tags</label>
+                    <input type="text" name="Tags" class="form-control" id="tags" placeholder="Enter tags">
                 </div>
 
                 <button type="submit" class="btn btn-primary">Create Project</button>
@@ -169,8 +171,7 @@
                 .then(data => {
                     for (i = 0; i < data.length; i++) {
                         b = document.createElement("DIV");
-                        b.innerHTML = "<strong>" + data[i].text.substr(0, val.length) + "</strong>";
-                        b.innerHTML += data[i].text.substr(val.length);
+                        b.innerHTML = data[i].text;
                         b.innerHTML += "<input type='hidden' value='" + data[i].value + "'>";
                         b.addEventListener("click", function (e) {
                             inp.value = this.getElementsByTagName("input")[0].value;
