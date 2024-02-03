@@ -70,7 +70,7 @@ namespace Project_Management_System.Controllers
 
             // Filter the items based on the search substring
             List<SelectListItem> filteredCountries = allCountries
-                .Where(item => item.Text.StartsWith(search, StringComparison.OrdinalIgnoreCase))
+                .Where(item => item.Text.Contains(search, StringComparison.OrdinalIgnoreCase))
                 .ToList();
 
             return filteredCountries;
