@@ -14,15 +14,15 @@
         <table class="table projectlist-table">
             <thead class="projectlist-head">
                 <tr>
-                    <th scope="col">Project</th>
+                    <th scope="col">Task</th>
                     <th scope="col">Owner</th>
-                    <th scope="col">status</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Tags</th>
+                    <th scope="col">Start Time</th>
+                    <th scope="col">End Time</th>
                     <th scope="col">Duration</th>
                     <th scope="col">Priority</th>
                     <th scope="col">CreatedBy</th>
-                    <th scope="col">Start Time</th>
-                    <th scope="col">End Time</th>
-                    <th scope="col">Tags</th>
                 </tr>
             </thead>
             <!--Needs to add task details from the server-->
@@ -60,4 +60,9 @@
         cursor: pointer;
     }
 </style>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log(@Json.Serialize(Model));
+    })
+</script>
 

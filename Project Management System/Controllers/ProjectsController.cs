@@ -16,17 +16,17 @@ namespace Project_Management_System.Controllers
 
         public IActionResult ProjectDetails(int id=1)
         {
-            //var project = projectList.FirstOrDefault(p => p.ProjectId == id);
-            var project = new ProjectViewModel
-            {
-                ProjectId = id,
-                ProjectTitle = "Hardcoded Project",
-                StartTime = DateTime.Now,
-                EndTime = DateTime.Now.AddDays(30),
-                Tags = "Sample Tags",
-                ProjectOwner = "Ronaldo",
-                ProjectDescription = "This is a sample project description."
-            };
+            var project = projectList.FirstOrDefault(p => p.ProjectId == id);
+            /* var project = new ProjectViewModel
+             {
+                 ProjectId = id,
+                 ProjectTitle = "Hardcoded Project",
+                 StartTime = DateTime.Now,
+                 EndTime = DateTime.Now.AddDays(30),
+                 Tags = "Sample Tags",
+                 ProjectOwner = "Ronaldo",
+                 ProjectDescription = "This is a sample project description."
+             };*/
             if (project == null)
             {
                 // Handle the case where the project with the given ID is not found
@@ -34,7 +34,8 @@ namespace Project_Management_System.Controllers
             }
 
             // Pass the project details to the view
-            return View(project);
+            Console.WriteLine("I got no idea here");
+            return View("ProjectDetails/Tasks", project);
         }
 
         [HttpPost]

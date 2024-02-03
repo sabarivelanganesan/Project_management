@@ -1,4 +1,6 @@
-﻿namespace Project_Management_System.Models
+﻿using System.Collections.Generic;
+
+namespace Project_Management_System.Models
 {
     public class ProjectViewModel
     {
@@ -11,5 +13,7 @@
         public DateTime EndTime { get; set; }
         public string Tags { get; set; }
         public string ProjectDescription { get; set; }
+
+        public List<TaskViewModel> Tasks { get; set; }
     }
 }
