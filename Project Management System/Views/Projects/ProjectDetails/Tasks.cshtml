@@ -1,15 +1,17 @@
-﻿@{
+﻿@model Project_Management_System.Models.ProjectModel;
+@{
     ViewData["Title"] = "Project-Details";
 }
 <div class="container-fluid">
     <nav class="nav pt-4 pb-0" style="border-bottom: 0.5px solid #CCE;">
-        <div class="nav-item  p-2 me-3">Dashboard</div>
-        <div class="nav-item active p-2 me-3">Tasks</div>
+        <div class="nav-item p-2 me-3">Dashboard</div>
+        <div class="nav-item active p-2 me-3">Tasks @Model.tasks.Count</div>
         <div class="nav-item p-2">Reports</div>
     </nav>
     <div class="d-flex justify-content-end mt-3">
         <button class="btn btn-primary">Add Task</button>
     </div>
+    <!-- content modify start-->
     <div class="container mt-4">
         <table class="table projectlist-table">
             <thead class="projectlist-head">
@@ -26,6 +28,7 @@
                 </tr>
             </thead>
             <!--Needs to add task details from the server-->
+           
             <tbody class="projectlist-body">
                 <tr style="border: solid #fff; cursor:pointer">
                     <td>Task</td>

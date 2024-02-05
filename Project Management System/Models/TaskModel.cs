@@ -1,6 +1,6 @@
 ﻿namespace Project_Management_System.Models
 {
-    public class TaskViewModel
+    public class TaskModel
     {
         public enum TaskPriority
         {
@@ -9,9 +9,9 @@
             Medium,
             High
         }
-        public TaskViewModel(int projectId)
+        public TaskModel(int projectId)
         {
-            ProjectId = projectId;
+            this.ProjectId = projectId;
         }
 
         public int ProjectId { get; set; }

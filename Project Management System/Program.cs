@@ -21,9 +21,9 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-    name: "ProjectDetailsTasksRoute",
-    pattern: "Projects/ProjectDetails/{id}/Tasks",
-    defaults: new { controller = "Projects", action = "Tasks" });
+    name: "ProjectDetailsRoute",
+    pattern: "Projects/ProjectDetails/{id}/{page}",
+    defaults: new { controller = "Projects", action = "ProjectDetails" });
 
 app.MapControllerRoute(
     name: "default",

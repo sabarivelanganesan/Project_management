@@ -1,54 +1,44 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Project_Management_System.Models;
+using System.Threading.Tasks;
 
 namespace Project_Management_System.Controllers
 {
     public class ProjectsController : Controller
     {
         // Create a static list to store project data
-        private static List<ProjectViewModel> projectList = new List<ProjectViewModel>();
+        private static List<ProjectModel> projectList = new List<ProjectModel>();
+        private static List<TaskModel> taskList = new List<TaskModel>();
         private static int indexIncrement = 1;
         public IActionResult Index()
         {
             return View(projectList);
         }
 
-        public IActionResult ProjectDetails(int id=1)
+        public IActionResult ProjectDetails(int id, string page)
         {
             var project = projectList.FirstOrDefault(p => p.ProjectId == id);
-            /* var project = new ProjectViewModel
-             {
-                 ProjectId = id,
-                 ProjectTitle = "Hardcoded Project",
-                 StartTime = DateTime.Now,
-                 EndTime = DateTime.Now.AddDays(30),
-                 Tags = "Sample Tags",
-                 ProjectOwner = "Ronaldo",
-                 ProjectDescription = "This is a sample project description."
-             };*/
             if (project == null)
             {
-                // Handle the case where the project with the given ID is not found
                 return RedirectToAction("Index");
             }
 
-            // Pass the project details to the view
-            Console.WriteLine("I got no idea here");
-            return View("ProjectDetails/Tasks", project);
+            string ViewName = $"ProjectDetails/{page}";
+
+            return View(ViewName, project);
         }
 
         [HttpPost]
-        public IActionResult CreateProject(ProjectViewModel model)
+        public IActionResult CreateProject(ProjectModel model)
         {
             model.ProjectId = indexIncrement;
-            Console.WriteLine("Model" + model.ProjectId);
-            Console.WriteLine("ProjectTitle" + model.ProjectTitle);
             indexIncrement++;
+            TaskModel task = new TaskModel(model.ProjectId);
+            model.tasks.Add(task);
+            //Console.WriteLine(String.Format("Task Name {0}, Task Id {1}", model.tasks[0].TaskName, model.tasks[0].ProjectId));
             projectList.Add(model);
-            Console.WriteLine("Model Added");
             return RedirectToAction("Index");
-            //return RedirectToAction("Index", "MyTasks");
         }
 
         [HttpGet]

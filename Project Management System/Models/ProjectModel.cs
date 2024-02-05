@@ -2,9 +2,13 @@
 
 namespace Project_Management_System.Models
 {
-    public class ProjectViewModel
+    public class ProjectModel
     {
-        private List<TaskViewModel> tasks;
+        public ProjectModel() {
+            tasks = new List<TaskModel>();
+        }
+
+        public List<TaskModel> tasks { get; set; }
 
         public int ProjectId { get; set; }
         public string ProjectTitle { get; set; }
@@ -14,6 +18,6 @@ namespace Project_Management_System.Models
         public string Tags { get; set; }
         public string ProjectDescription { get; set; }
 
-        public List<TaskViewModel> Tasks { get; set; }
+        //public List<TaskViewModel> Tasks { get; set; }
     }
 }

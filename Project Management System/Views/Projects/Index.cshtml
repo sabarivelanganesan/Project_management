@@ -1,4 +1,4 @@
-﻿@model List<Project_Management_System.Models.ProjectViewModel>
+﻿@model List<Project_Management_System.Models.ProjectModel>
 @{
     ViewData["Title"] = "Projects List";
 }
@@ -82,7 +82,7 @@
         <tbody class="projectlist-body">
             @foreach (var project in Model)
             {
-                <tr style="border: solid #fff" onclick="location.href='@Url.Action("ProjectDetails", "Projects", new { id = project.ProjectId })';" style="cursor:pointer;">
+                <tr style="border: solid #fff" onclick="location.href='@Url.Action("ProjectDetails", "Projects", new { id = project.ProjectId, page = "Tasks" })';" style="cursor:pointer;">
                 <td>@project.ProjectTitle</td>
                     <td>@project.StartTime</td>
                     <td>@project.EndTime</td>
