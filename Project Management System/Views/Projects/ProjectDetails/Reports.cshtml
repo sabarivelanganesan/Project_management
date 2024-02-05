@@ -1,4 +1,46 @@
-﻿@{
-    ViewData["Title"] = "Reports";
+﻿@model Project_Management_System.Models.ProjectModel;
+@{
+    ViewData["Title"] = "Project-Details";
 }
-<h1>This is details reports</h1>
+<div class="container-fluid">
+    <!--
+    <nav class="nav pt-4 pb-0" style="border-bottom: 0.5px solid #CCE;">
+        <div class="nav-item p-2 me-3">Dashboard</div>
+        <div class="nav-item active p-2 me-3">Tasks @Model.tasks.Count</div>
+        <div class="nav-item p-2">Reports</div>
+    </nav>
+    -->
+    <nav class="nav pt-4 pb-0" style="border-bottom: 0.5px solid #CCE;">
+        <div class="nav-item p-2 me-3"><a class="project-details nav-link" href="@Url.Action("ProjectDetails", "Projects", new { id = 1, page = "Dashboard" })">Dashboard</a></div>
+        <div class="nav-item p-2 me-3"><a class="project-details nav-link" href="@Url.Action("ProjectDetails", "Projects", new { id = 1, page = "Tasks" })">Tasks</a></div>
+        <div class="nav-item active p-2"><a class="project-details nav-link" href="@Url.Action("ProjectDetails", "Projects", new { id = 1, page = "Reports" })">Reports</a></div>
+    </nav>
+</div>
+<style>
+    .nav-item.active {
+        border-bottom: 3px solid #02054D !important;
+        border-radius: 2px;
+        color: #02054D !important;
+        font-weight: bold;
+    }
+
+    .project-details.nav-link {
+        color: #02054D !important;
+        padding: 0px;
+    }
+    table.projectlist-table .projectlist-head tr {
+        border-bottom: 3px solid #eee;
+        margin-bottom: 5px;
+    }
+
+    table.projectlist-table .projectlist-body tr:hover {
+        background-color: #eee;
+        cursor: pointer;
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log(@Json.Serialize(Model));
+    })
+</script>
+

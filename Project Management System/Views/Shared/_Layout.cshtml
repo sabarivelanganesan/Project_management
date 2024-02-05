@@ -26,10 +26,6 @@
                        class="list-group-item list-group-item-action py-2 ripple @(ViewContext.RouteData.Values["Controller"].ToString() == "MyTasks" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
                         <i class="fas fa-tachometer-alt fa-fw me-3"></i><span">My Tasks</span>
                     </a>
-                    <a href="@Url.Action("ProjectDetails", "Projects")"
-                       class="list-group-item list-group-item-action py-2 ripple">
-                        <i class="fas fa-tachometer-alt fa-fw me-3"></i><span">Tasks(dev)</span>
-                    </a>
                     <a href="@Url.Action("Index", "Notifications")" class="list-group-item list-group-item-action py-2 ripple @(ViewContext.RouteData.Values["Controller"].ToString() == "Notifications" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
                         <i class="fas fa-chart-area fa-fw me-3"></i><span>Discuss</span>
                     </a>
@@ -122,5 +118,8 @@
     <!--Main layout-->
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>
