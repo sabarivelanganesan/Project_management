@@ -22,7 +22,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "ProjectDetailsRoute",
-    pattern: "Projects/ProjectDetails/{id?}",
+    pattern: "Projects/ProjectDetails/{id}/{page}",
     defaults: new { controller = "Projects", action = "ProjectDetails" });
 
 app.MapControllerRoute(

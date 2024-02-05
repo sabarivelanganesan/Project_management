@@ -1,31 +1,34 @@
-﻿@{
+﻿@model Project_Management_System.Models.ProjectModel;
+@{
     ViewData["Title"] = "Project-Details";
 }
 <div class="container-fluid">
     <nav class="nav pt-4 pb-0" style="border-bottom: 0.5px solid #CCE;">
-        <div class="nav-item  p-2 me-3">Dashboard</div>
-        <div class="nav-item active p-2 me-3">Tasks</div>
+        <div class="nav-item p-2 me-3">Dashboard</div>
+        <div class="nav-item active p-2 me-3">Tasks @Model.tasks.Count</div>
         <div class="nav-item p-2">Reports</div>
     </nav>
     <div class="d-flex justify-content-end mt-3">
         <button class="btn btn-primary">Add Task</button>
     </div>
+    <!-- content modify start-->
     <div class="container mt-4">
         <table class="table projectlist-table">
             <thead class="projectlist-head">
                 <tr>
-                    <th scope="col">Project</th>
+                    <th scope="col">Task</th>
                     <th scope="col">Owner</th>
-                    <th scope="col">status</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Tags</th>
+                    <th scope="col">Start Time</th>
+                    <th scope="col">End Time</th>
                     <th scope="col">Duration</th>
                     <th scope="col">Priority</th>
                     <th scope="col">CreatedBy</th>
-                    <th scope="col">Start Time</th>
-                    <th scope="col">End Time</th>
-                    <th scope="col">Tags</th>
                 </tr>
             </thead>
             <!--Needs to add task details from the server-->
+           
             <tbody class="projectlist-body">
                 <tr style="border: solid #fff; cursor:pointer">
                     <td>Task</td>
@@ -60,4 +63,9 @@
         cursor: pointer;
     }
 </style>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log(@Json.Serialize(Model));
+    })
+</script>
 
