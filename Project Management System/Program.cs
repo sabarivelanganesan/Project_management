@@ -1,7 +1,21 @@
+using Project_Management_System.Filters;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddLogging(); // Add logging services
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+builder.Services.AddScoped<LogActionFilter>();
+builder.Services.AddScoped<CustomHeaderFilter>();
+
+builder.Services.AddMvc(options =>
+{
+    options.Filters.AddService<LogActionFilter>();
+    options.Filters.AddService<CustomHeaderFilter>();
+});
 
 var app = builder.Build();
 
