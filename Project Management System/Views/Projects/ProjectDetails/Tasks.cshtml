@@ -3,20 +3,28 @@
     ViewData["Title"] = "Project-Details";
 }
 <div class="container-fluid">
+    <!--
     <nav class="nav pt-4 pb-0" style="border-bottom: 0.5px solid #CCE;">
         <div class="nav-item p-2 me-3">Dashboard</div>
         <div class="nav-item active p-2 me-3">Tasks @Model.tasks.Count</div>
         <div class="nav-item p-2">Reports</div>
     </nav>
+    -->
+    <nav class="nav pt-4 pb-0" style="border-bottom: 0.5px solid #CCE;">
+        <div class="nav-item p-2 me-3"><a class="project-details nav-link" href="@Url.Action("ProjectDetails", "Projects", new { id = 1, page = "Dashboard" })">Dashboard</a></div>
+        <div class="nav-item active p-2 me-3"><a class="project-details nav-link" href="@Url.Action("ProjectDetails", "Projects", new { id = 1, page = "Tasks" })">Tasks</a></div>
+        <div class="nav-item p-2"><a class="project-details nav-link" href="@Url.Action("ProjectDetails", "Projects", new { id = 1, page = "Reports" })">Reports</a></div>
+    </nav>
+
     <div class="d-flex justify-content-end mt-3">
-        <button class="btn btn-primary">Add Task</button>
+        <button class="btn btn-primary" onclick="openModal()">Add Task</button>
     </div>
     <!-- content modify start-->
     <div class="container mt-4">
         <table class="table projectlist-table">
             <thead class="projectlist-head">
-                <tr>
-                    <th scope="col">Task</th>
+                <tr class="pd-rows">
+                    <th scope="col">Task Name</th>
                     <th scope="col">Owner</th>
                     <th scope="col">Status</th>
                     <th scope="col">Tags</th>
@@ -24,25 +32,99 @@
                     <th scope="col">End Time</th>
                     <th scope="col">Duration</th>
                     <th scope="col">Priority</th>
-                    <th scope="col">CreatedBy</th>
                 </tr>
             </thead>
             <!--Needs to add task details from the server-->
            
             <tbody class="projectlist-body">
-                <tr style="border: solid #fff; cursor:pointer">
-                    <td>Task</td>
-                    <td>ProjectOwner</td>
-                    <td>Status</td>
-                    <td>Duration</td>
-                    <td>Priority</td>
-                    <td>CreatedBy</td>
-                    <td>StartTime</td>
-                    <td>EndTime</td>
-                    <td>Tags</td>
-                </tr>
+                @if(Model.tasks.Count > 1)
+                {
+                    @foreach (var task in Model.tasks)
+                    {
+                        <tr style="border: solid #fff; cursor:pointer">
+                            <td>@task.TaskName</td>
+                            <td>@task.TaskOwner</td>
+                            <td>@task.TaskStatus</td>
+                            <td>@task.Tags</td>
+                            <td>@task.TaskStartDate</td>
+                            <td>@task.TaskEndDate</td>
+                            <td>@task.TaskDuration</td>
+                            <td>@task.Priority</td>
+                        </tr>
+                    }
+                } else
+                {
+                    <tr>
+                        <td colspan="8" class="row-disable">
+                            <span>No tasks added yet?</span>
+                            <button onclick="openModal()" class="btn btn-link">Add Task</button>
+                        </td>
+                    </tr>
+                }
+                
             </tbody>
         </table>
+    </div>
+    <div id="myModal" class="modal">
+        <div class="backdrop"></div>
+        <div class="modal-content">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center py-3">
+                    <h3 class="modal-title" style="color: black;">New Task</h3>
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <span class="close" style="color: black; cursor: pointer;" onclick="closeModal()">&times;</span>
+                        </div>
+                    </div>
+                </div>
+                <form asp-controller="Projects" asp-action="AddTask" method="post">
+                    <div class="form-group mb-4">
+                        <label for="taskTitle">Task Name</label>
+                        <input type="text" class="form-control" id="taskTitle" name="TaskName" required>
+                    </div>
+
+                    <!-- Bugs in Text area needs to fix-->
+                    <div class="form-group mb-4">
+                        <label class="mb-2" for="taskDescription">Task Description</label>
+                        <div>
+                        <textarea id="taskDescription" name="TaskDescription" class="task-description"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="mb-2" for="startTime">Start Time</label>
+                                <input type="datetime-local" name="TaskStartDate" class="form-control" id="startTime">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="mb-2" for="endTime">End Time</label>
+                                <input type="datetime-local" name="TaskEndDate" class="form-control" id="endTime">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <div class="d-flex">
+                            <h5 class="task-info-heading mb-3 me-2" data-toggle="collapse" data-target="#taskInformation">
+                                Task Information
+                            </h5>
+                            <div class="task-info-icon" style="font-size: 19px; position: relative; top: -2px;}">
+                                >
+                            </div>
+
+                        </div>
+
+                        <div id="taskInformation" class="collapse">
+                            <label class="mb-2" for="tags">Tags</label>
+                            <input type="text" name="Tags" class="form-control" id="tags" placeholder="Enter tags">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Add Task</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 <style>
@@ -53,19 +135,106 @@
         font-weight: bold;
     }
 
+    .project-details.nav-link {
+        color: #02054D !important;
+        padding: 0px;
+    }
+
     table.projectlist-table .projectlist-head tr {
         border-bottom: 3px solid #eee;
         margin-bottom: 5px;
     }
 
-    table.projectlist-table .projectlist-body tr:hover {
+    table.projectlist-table .projectlist-body td.row-disable {
+        text-align: center;
+    }
+
+    table.projectlist-table .projectlist-body .pd-rows:hover {
         background-color: #eee;
         cursor: pointer;
     }
+
+    .backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: none; /* Initially hide the backdrop */
+    }
+
+    .modal {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 100%;
+        width: 50%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        transition: transform 4s ease;
+    }
+
+
+    .modal-content {
+        background-color: #fefefe;
+        padding: 20px;
+        height: 100%;
+        border: 0px;
+        overflow: auto;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .form-group label {
+        font-weight: bold;
+    }
+    .task-description {
+        width: 100%;
+        height: 100px;
+        border: 1px solid #ced4da;
+        outline-color: #ced4da;
+    }
 </style>
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        console.log(@Json.Serialize(Model));
-    })
+    // Add this script at the end of your HTML body or in a script tag
+    function openModal() {
+        const data = @Json.Serialize(Model);
+        const body = document.getElementsByTagName("body")[0];
+        const myModal = document.getElementById("myModal");
+        const backdrop = myModal.querySelector(".backdrop");
+
+        myModal.style.left = "50%";
+        myModal.style.display = "block";
+        backdrop.style.display = "block"; // Show the backdrop
+        body.classList.add("modal-open");
+    }
+
+    function closeModal() {
+        const body = document.getElementsByTagName("body")[0];
+        const myModal = document.getElementById("myModal");
+        const backdrop = myModal.querySelector(".backdrop");
+
+        myModal.style.left = "100%";
+        myModal.style.display = "none";
+        backdrop.style.display = "none"; // Hide the backdrop
+        body.classList.remove("modal-open");
+    }
+
+    const taskInfoHeading = document.querySelector(".task-info-heading");
+    const icon = document.querySelector(".task-info-icon");
+    taskInfoHeading.addEventListener('click', function () {
+        const taskInformation = document.getElementById('taskInformation');
+        if (taskInformation.classList.contains('show')) {
+            icon.textContent = '>';
+        } else {
+            icon.textContent = 'v';
+        }
+    });
 </script>
 

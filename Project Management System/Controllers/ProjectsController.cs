@@ -23,7 +23,6 @@ namespace Project_Management_System.Controllers
             {
                 return RedirectToAction("Index");
             }
-
             string ViewName = $"ProjectDetails/{page}";
 
             return View(ViewName, project);
