@@ -14,6 +14,11 @@
             this.ProjectId = projectId;
         }
 
+        public TaskModel()
+        {
+
+        }
+
         public int ProjectId { get; set; }
         public string TaskName { get; set; }
         public string TaskOwner { get; set; }
@@ -28,6 +33,7 @@
         public string Tags { get; set; }
 
         public TaskPriority Priority { get; set; }
+        public IFormFile TaskAttachment { get; set; }
 
     }
 }
