@@ -16,16 +16,26 @@ namespace Project_Management_System.Controllers
             return View(projectList);
         }
 
+        [HttpPost]
+        public IActionResult AddTask(TaskModel task, int projectId)
+        {
+            var currentProject = projectList.FirstOrDefault(p => p.ProjectId == projectId);
+            Console.WriteLine(task.TaskName);
+            Console.WriteLine("-----------");
+            return View("ProjectDetails/Tasks");
+        }
+
         public IActionResult ProjectDetails(int id, string page)
         {
-            var project = projectList.FirstOrDefault(p => p.ProjectId == id);
-            if (project == null)
+            ProjectModel currentProject = projectList.FirstOrDefault(p => p.ProjectId == id);
+            if (currentProject == null)
             {
                 return RedirectToAction("Index");
             }
             string ViewName = $"ProjectDetails/{page}";
-
-            return View(ViewName, project);
+            Console.WriteLine(ViewName);
+            Console.WriteLine(currentProject.ProjectId);
+            return View(ViewName, currentProject);
         }
 
         [HttpPost]
