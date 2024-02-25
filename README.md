@@ -65,4 +65,8 @@ These aspects, along with testing, will be carried over to phase 2.
 
 Feel free to contribute by forking the repository and submitting pull requests. Bug reports, feature requests, and feedback are also welcome!
 
+## Future Implementation
+
+Revamp Design
+
 
